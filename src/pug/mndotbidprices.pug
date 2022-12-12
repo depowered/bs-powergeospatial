@@ -38,7 +38,7 @@ html(lang='en')
                         li.nav-item
                             a.nav-link(href='#purpose') Purpose
                         li.nav-item
-                            a.nav-link(href='#api') API
+                            a.nav-link(href='#api') REST API
                         li.nav-item
                             a.nav-link(href='#dashboard') Dashboard
                         li.nav-item
@@ -57,7 +57,7 @@ html(lang='en')
                         //- a.btn.btn-primary(href='#about') Get Started
 
         // Purpose
-        section#purpose.dash-content.text-center
+        section#purpose.dash-content
             .container.px-4.px-lg-5
                 .row.gx-4.gx-lg-5.justify-content-center
                     .col-lg-10
@@ -90,34 +90,86 @@ html(lang='en')
                                 | MnDOT's Bid Letting Abstracts.
                             | Within these documents are not only bids submitted by the awarded contractor but all bidders and the engineer's estimated prices. From this level of data, the application provides the user with the data necessary to understand pricing variability across time and total quantity and benefit from bid data not yet published in the annual average price documents.
 
-        // API
-        section#api.dash-content.text-center
+        // Backend REST API
+        section#api.dash-content
             .container.px-4.px-lg-5
                 .row.gx-4.gx-lg-5.justify-content-center
                     .col-lg-10
-                        h1.text-black.mb-4 API
+                        h1.text-black.mb-4 REST API
+                        img.img-fluid(src='assets/img/mndot-bid-api-docs.jpg', alt='Swagger OpenAPI Docs')
+                        p.text-black.mt-4.text-center
+                            a.btn.btn-primary(href='https://mndotbidprices.com/api/v1/docs', target='_blank') View the Swagger OpenAPI Docs
                         p.text-black
-                            | Text
-                        img.img-fluid(src='assets/img/mndot-bid-api-data-model.png', alt='...')
+                            | The backend was built using FastAPI to provide routing and operation layers in front of the database. The API provides create, read, update, delete, and query for each of the database tables for manually managing records. The API also provides two extract, transform, load routes that create or update records from data contained in item list and bid abstract CSVs downloadable from MnDOT's Transport List and Bid Letting Abstracts respectively.
+
+                        h2.text-black Data Model
+                        img.img-fluid(src='assets/img/mndot-bid-api-data-model.png', alt='Database Diagram')
+                        p.text-black.mt-4
+                            | The data model was defined to closely reflect the content and organization of the source CSVs. This design allows records to be prepared for loading into the database with minimal transformation complexity. It also preserves the data as published allowing the backend to be mostly frontend agnostic.
+                        p.text-black.ms-4
+                            strong Contract
+                            | - General project data for a particular abstract
+                        p.text-black.ms-4
+                            strong Bidder
+                            | - Name and ID of prime contractors that have submitted a bid proposal that was ranked among the three lowest
+                        p.text-black.ms-4
+                            strong Bid
+                            | - Unit prices for each item including the engineer's estimate, winning bidder's price, and losing bidder's prices
+                        p.text-black.ms-4
+                            strong Invalid Bid
+                            | - Bid records for items that do not conform to items in the Transport List
+                        p.text-black.ms-4
+                            strong Item
+                            | - Items from the Transport List
+
+                        h2.text-black Extract, Transform, Load
+                        p.text-black
+                            | The ETL process is achieved through two critical libraries: Pandas and Pandera.
+                        p.text-black
+                            | Pandas is used to read the uploaded CSV into DataFrames, transform the content of those DataFrames to match the schema of the destination database table, and iteratively pass those records to the appropriate create or update operation.
+                        p.text-black
+                            | Pandera is a DataFrame validation library and plays a key role in verifying that the records loaded into the database through the ETL process conform to the desired schema. For each step in the process, a Pandera Schema Model is defined with custom validations to ensure that the intermediate data products contain all the requisite columns and proper types that the next step needs. Not only does this allow for defining predictable results from the transformations, but also enables broad error handling coverage so that the process can handle appropriately malformed inputs without crashing the server.
+
+
 
         // Dashboard
-        section#dashboard.dash-content.text-center
+        section#dashboard.dash-content
             .container.px-4.px-lg-5
                 .row.gx-4.gx-lg-5.justify-content-center
                     .col-lg-10
                         h1.text-black.mb-4 Dashboard
+                        img.img-fluid(src='assets/img/mndot-bid-dash.jpg', alt='Dashboard web application')
+                        p.mt-4.text-center
+                            a.btn.btn-primary(href='https://mndotbidprices.com/', target='_blank') Launch the Dashboard
                         p.text-black
-                            | Text
+                            | The dashboard is a single page web application built with the Dash-Plotly framework. I chose this framework because it has a Python API, takes Pandas DataFrames as input to its graphs, and is an extension of Flask, all of which I am already familiar with which significantly reduced the time to build this first release. It is a little rough around the edges, but this initial build provides the core functionality I had hoped to achieve:
+                        ul
+                            li 
+                                | Allow users to search for Transport List items by specification year
+                            li 
+                                | Allow users to select an item of interest and request bid data from the backend server
+                            li 
+                                | Provide simple aggregations like those found in the Average Bid Price PDFs
+                            li 
+                                | Provide graphs where individual bids are plotted against time and quantity to allow users to explore price variance across those two parameters
 
         // Hosting
-        section#hosting.dash-content.text-center
+        section#hosting.dash-content
             .container.px-4.px-lg-5.mb-5
                 .row.gx-4.gx-lg-5.justify-content-center
                     .col-lg-10
-                        h1.text-black.mb-4 Hosting Architecture
+                        h1.text-black.my-4 Hosting Architecture
+                        img.img-fluid(src='assets/img/mndot-bid-hosting.jpg', alt='Hosting architecture diagram')
+                        p.text-black.mt-4
+                            | The frontend and backend applications are each run in docker containers. They are currently being run side by side on a low powered Ubuntu virtual machine with a public IP. An NGINX reverse proxy routes requests to the appropriate internal IP assigned to each process. The SQLite database is stored on a persistent volume block that is mounted to the virtual machine, which only the backend accesses.
                         p.text-black
-                            | Text
-                        img.img-fluid(src='assets/img/mndot-bid-hosting.jpg', alt='...')
+                            | I chose this configuration for its modularity, simplicity, and low hosting costs. Details behind my choices are outlined below.
+                        p.text-black
+                            | SQLite is more than adequate for this small-data application and its use removes the complexity of running a third container to power a PostGreSQL or MySQL database. It is often cited as not suitable for a production environment due to its lack of concurrent write capabilities, however I am the only one with write access in the application's current configuration.
+                        p.text-black
+                            | I wanted to keep the frontend and backend processes completely separate. I'm not certain that Dash-Plotly will be the final frontend framework for this project, I would like to try creating the frontend in a JavaScript framework in the future. Since the processes only interact via the REST API, I am free to modify, move, or replace the frontend without impacting the backend.
+                        p.text-black
+                            | In the meantime, both processes require minimal resources and traffic is near-zero, so the low powered virtual machine can easily host both simialtanously. This both keeps my hosting costs low and simplifies routing of the traffic to each process.
 
 
 

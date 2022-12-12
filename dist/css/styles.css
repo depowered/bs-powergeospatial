@@ -11781,3 +11781,7 @@ body {
 .dash-content img {
   box-shadow: -0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
+.dash-content .center {
+  width: 20%;
+  margin: 0 auto;
+}
