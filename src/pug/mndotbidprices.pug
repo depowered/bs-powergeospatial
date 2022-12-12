@@ -27,7 +27,7 @@ html(lang='en')
         // Navigation
         nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
             .container.px-4.px-lg-5
-                a.navbar-brand(href='#page-top')
+                a.navbar-brand(href='index.html')
                     img(src='assets/pg-icon.svg', alt='Power Geospatial Icon', style="height:2rem;width:auto")
                     span.navbar-brand Power Geospatial
                 button.navbar-toggler.navbar-toggler-right(type='button', data-bs-toggle='collapse', data-bs-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
@@ -63,7 +63,32 @@ html(lang='en')
                     .col-lg-10
                         h1.text-black.mb-4 Purpose
                         p.text-black
-                            | Text
+                            | If you have ever been tasked with creating an engineer's estimate for a MnDOT construction project, you have probably researched historic bid prices using the 
+                            a.text-black(href='https://www.dot.state.mn.us/bidlet/average-bid-price.html', target='_blank')
+                                | Average Bid Price PDFs
+                            | published yearly by MnDOT.
+
+                        p.text-black
+                            | These documents contain the total quantity, total cost, average price, and number of contract appearances for each bid item used in a MnDOT construction contract that year. They offer a complete, authoritative, and well-organized summary of how much MnDOT is spending on individual items.
+
+                        p.text-black
+                            | They are not without disadvantages, however. If these annual summaries are your only source of pricing information, you will often be left wanting for several reasons:
+
+                        p.text-black.ms-4
+                            strong Infrequency
+                            | - Since the documents are only published once per year, and sometimes not for a month or two into the following year, the content can already be slightly dated by the time it is available.
+                        p.text-black.ms-4
+                            strong One, at most, data points per year
+                            | - Since the spending on an item across all projects that year is boiled down to one line, the price variability from project to project is unknown. For instance, the reported average price could be inflated by an exceptionally high price on one project that isn't representative of the average case.
+                        p.text-black.ms-4
+                            strong Comparing prices from year to year 
+                            | - These PDFs are more than 100 pages each, so finding an item efficiently already involves text-searching the document. To compare results from one year to another, you'll need to open two PDFs or have recorded the information elsewhere. Not difficult, but cumbersome.
+
+                        p.text-black
+                            | The MnDOT Bid Prices Dashboard application seeks to remedy these points of friction by making available more granular bid pricing data. This is accomplished by extracting, storing, aggregating, and displaying individual bids published in 
+                            a.text-black(href='https://www.dot.state.mn.us/bidlet/abstract.html', target='_blank')
+                                | MnDOT's Bid Letting Abstracts.
+                            | Within these documents are not only bids submitted by the awarded contractor but all bidders and the engineer's estimated prices. From this level of data, the application provides the user with the data necessary to understand pricing variability across time and total quantity and benefit from bid data not yet published in the annual average price documents.
 
         // API
         section#api.dash-content.text-center
