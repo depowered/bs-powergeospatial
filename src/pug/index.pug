@@ -49,7 +49,6 @@ html(lang='en')
                     .text-center
                         h1.mx-auto.my-0.text-uppercase Power Geospatial
                         h2.text-white-50.mx-auto.mt-2.mb-5 A portfolio.
-                        //- a.btn.btn-primary(href='#about') Get Started
 
         // About
         section#about.about-section.text-center
@@ -61,8 +60,6 @@ html(lang='en')
                             | I am a professional water resources engineer with more than a decade of 
                             | experience designing, permitting, and inspecting public infrastructure 
                             | projects. 
-                            //- | For more details on that, check out my 
-                            //- a.text-white(href="#!") experience story map.
                         p.text-white
                             | I am currently a full-time student, studying Geographic Information Science 
                             | through the online 
@@ -75,28 +72,27 @@ html(lang='en')
                             | This site is my little corner of the internet to show off what I've learned from
                             | those two programs, and (with luck!) provide web-based tools that solve practical
                             | problems. Check out my projects below.
-                        //- a.btn.btn-primary(href='#!') More Information
 
         // Projects
         section#projects.projects-section.bg-light
             .container.px-4.px-lg-5.overlay-parent
-                div.overlay-filter.d-flex.align-items-center.justify-content-center
-                    div.overlay-text COMING SOON
+                div.d-flex.align-items-center.justify-content-center
                 // Featured Project Row
                 .row.gx-0.mb-4.mb-lg-5.align-items-center
                     .col-xl-8.col-lg-7
-                        img.img-fluid.mb-3.mb-lg-0(src='assets/img/bg-masthead.jpg', alt='...')
+                        img.img-fluid.mb-3.mb-lg-0(src='assets/img/bw-box-plot-wide.png', alt='Dashboard web application')
                     .col-xl-4.col-lg-5
                         .featured-text.text-center.text-lg-left
                             h4 MnDOT Bid Price Dashboard
                             p.text-black-50
-                                | An interactive dashboard for understanding bid item unit prices.
-                            a.btn.btn-primary.mb-2(href='#!') Launch Dashboard
-                            a.btn.btn-primary.mb-2(href='#!') More Information
+                                | An interactive dashboard for exploring historic bid item prices.
+                            a.btn.btn-primary.mb-2(href='https://mndotbidprices.com', target="_blank")
+                                | Launch Dashboard
+                            a.btn.btn-primary.mb-2(href='mndotbidprices.html') More Information
                 // Project One Row
                 .row.gx-0.mb-5.mb-lg-0.justify-content-center
                     .col-lg-6
-                        img.img-fluid(src='assets/img/demo-image-01.jpg', alt='...')
+                        img.img-fluid(src='assets/img/engineering-map.jpg', alt='Engineering project web map')
                     .col-lg-6
                         .bg-black.text-center.h-100.project
                             .d-flex.h-100
@@ -104,24 +100,7 @@ html(lang='en')
                                     h4.text-white Engineering Project Map
                                     p.text-white-50
                                         | A web map highlighting the engineering projects I've contributed to, and my role on each.
-                                    //- a.btn.btn-primary.mb-2(href='#!') Launch Map
-                                    //- a.btn.btn-primary.mb-2(href='#!') More Information
-                                    //- hr.d-none.d-lg-block.mb-0.ms-0
-                // Project Two Row
-                .row.gx-0.justify-content-center
-                    .col-lg-6
-                        img.img-fluid(src='assets/img/demo-image-02.jpg', alt='...')
-                    .col-lg-6.order-lg-first
-                        .bg-black.text-center.h-100.project
-                            .d-flex.h-100
-                                .project-text.w-100.my-auto.text-center.text-lg-right
-                                    h4.text-white MN Stormwater Regulation Map
-                                    p.text-white-50
-                                        | A web map that allows for rapid discovery of the water resources near and stormwater 
-                                        | regulation landscape of a given project location in MN.
-                                    //- a.btn.btn-primary.mb-2(href='#!') Launch Map
-                                    //- a.btn.btn-primary.mb-2(href='#!') More Information
-                                    //- hr.d-none.d-lg-block.mb-0.me-0
+                                    a.btn.btn-primary.mb-2.disabled(href='#!') Coming Soon
 
         // Contact
         section#contact.contact-section.bg-black
@@ -149,13 +128,6 @@ html(lang='en')
                                 h4.text-uppercase.m-0 Phone
                                 hr.my-4.mx-auto
                                 .small.text-black-50 +1 (612) 208-8078
-                //- .social.d-flex.justify-content-center
-                //-     a.mx-2(href='#!')
-                //-         i.fab.fa-twitter
-                //-     a.mx-2(href='#!')
-                //-         i.fab.fa-facebook-f
-                //-     a.mx-2(href='#!')
-                //-         i.fab.fa-github
 
         // Footer
         footer.footer.bg-black.small.text-center.text-white-50

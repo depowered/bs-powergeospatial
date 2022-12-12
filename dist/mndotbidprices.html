@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>PG - MnDOT Bid Prices</title>
+        <link rel="icon" type="image/x-icon" href="assets/pg-icon.svg" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/pg-icon.svg" alt="Power Geospatial Icon" style="height: 2rem; width: auto" />
+                    <span class="navbar-brand">Power Geospatial</span>
+                </a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#purpose">Purpose</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#api">REST API</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hosting">Hosting Architecture</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="dashhead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-uppercase">MnDOT Bid Prices</h1>
+                        <h2 class="text-white mx-auto mt-2 mb-5">A full-stack web application that enables interactive exploration of historic bid prices on MnDOT construction projects by extracting information from published bid letting abstracts.</h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Purpose-->
+        <section class="dash-content" id="purpose">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="text-black mb-4">Purpose</h1>
+                        <p class="text-black">
+                            If you have ever been tasked with creating an engineer's estimate for a MnDOT construction project, you have probably researched historic bid prices using the
+                            <a class="text-black" href="https://www.dot.state.mn.us/bidlet/average-bid-price.html" target="_blank">Average Bid Price PDFs</a>
+                            published yearly by MnDOT.
+                        </p>
+                        <p class="text-black">These documents contain the total quantity, total cost, average price, and number of contract appearances for each bid item used in a MnDOT construction contract that year. They offer a complete, authoritative, and well-organized summary of how much MnDOT is spending on individual items.</p>
+                        <p class="text-black">They are not without disadvantages, however. If these annual summaries are your only source of pricing information, you will often be left wanting for several reasons:</p>
+                        <p class="text-black ms-4">
+                            <strong>Infrequency</strong>
+                            - Since the documents are only published once per year, and sometimes not for a month or two into the following year, the content can already be slightly dated by the time it is available.
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>One, at most, data points per year</strong>
+                            - Since the spending on an item across all projects that year is boiled down to one line, the price variability from project to project is unknown. For instance, the reported average price could be inflated by an exceptionally high price on one project that isn't representative of the average case.
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>Comparing prices from year to year</strong>
+                            - These PDFs are more than 100 pages each, so finding an item efficiently already involves text-searching the document. To compare results from one year to another, you'll need to open two PDFs or have recorded the information elsewhere. Not difficult, but cumbersome.
+                        </p>
+                        <p class="text-black">
+                            The MnDOT Bid Prices Dashboard application seeks to remedy these points of friction by making available more granular bid pricing data. This is accomplished by extracting, storing, aggregating, and displaying individual bids published in
+                            <a class="text-black" href="https://www.dot.state.mn.us/bidlet/abstract.html" target="_blank">MnDOT's Bid Letting Abstracts.</a>
+                            Within these documents are not only bids submitted by the awarded contractor but all bidders and the engineer's estimated prices. From this level of data, the application provides the user with the data necessary to understand pricing variability across time and total quantity and benefit from bid data not yet published in the annual average price documents.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Backend REST API-->
+        <section class="dash-content" id="api">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="text-black mb-4">REST API</h1>
+                        <img class="img-fluid" src="assets/img/mndot-bid-api-docs.jpg" alt="Swagger OpenAPI Docs" />
+                        <p class="text-black mt-4 text-center"><a class="btn btn-primary" href="https://mndotbidprices.com/api/v1/docs" target="_blank">View the Swagger OpenAPI Docs</a></p>
+                        <p class="text-black">The backend was built using FastAPI to provide routing and operation layers in front of the database. The API provides create, read, update, delete, and query for each of the database tables for manually managing records. The API also provides two extract, transform, load routes that create or update records from data contained in item list and bid abstract CSVs downloadable from MnDOT's Transport List and Bid Letting Abstracts respectively.</p>
+                        <h2 class="text-black">Data Model</h2>
+                        <img class="img-fluid" src="assets/img/mndot-bid-api-data-model.png" alt="Database Diagram" />
+                        <p class="text-black mt-4">The data model was defined to closely reflect the content and organization of the source CSVs. This design allows records to be prepared for loading into the database with minimal transformation complexity. It also preserves the data as published allowing the backend to be mostly frontend agnostic.</p>
+                        <p class="text-black ms-4">
+                            <strong>Contract</strong>
+                            - General project data for a particular abstract
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>Bidder</strong>
+                            - Name and ID of prime contractors that have submitted a bid proposal that was ranked among the three lowest
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>Bid</strong>
+                            - Unit prices for each item including the engineer's estimate, winning bidder's price, and losing bidder's prices
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>Invalid Bid</strong>
+                            - Bid records for items that do not conform to items in the Transport List
+                        </p>
+                        <p class="text-black ms-4">
+                            <strong>Item</strong>
+                            - Items from the Transport List
+                        </p>
+                        <h2 class="text-black">Extract, Transform, Load</h2>
+                        <p class="text-black">The ETL process is achieved through two critical libraries: Pandas and Pandera.</p>
+                        <p class="text-black">Pandas is used to read the uploaded CSV into DataFrames, transform the content of those DataFrames to match the schema of the destination database table, and iteratively pass those records to the appropriate create or update operation.</p>
+                        <p class="text-black">Pandera is a DataFrame validation library and plays a key role in verifying that the records loaded into the database through the ETL process conform to the desired schema. For each step in the process, a Pandera Schema Model is defined with custom validations to ensure that the intermediate data products contain all the requisite columns and proper types that the next step needs. Not only does this allow for defining predictable results from the transformations, but also enables broad error handling coverage so that the process can handle appropriately malformed inputs without crashing the server.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Dashboard-->
+        <section class="dash-content" id="dashboard">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="text-black mb-4">Dashboard</h1>
+                        <img class="img-fluid" src="assets/img/mndot-bid-dash.jpg" alt="Dashboard web application" />
+                        <p class="mt-4 text-center"><a class="btn btn-primary" href="https://mndotbidprices.com/" target="_blank">Launch the Dashboard</a></p>
+                        <p class="text-black">The dashboard is a single page web application built with the Dash-Plotly framework. I chose this framework because it has a Python API, takes Pandas DataFrames as input to its graphs, and is an extension of Flask, all of which I am already familiar with which significantly reduced the time to build this first release. It is a little rough around the edges, but this initial build provides the core functionality I had hoped to achieve:</p>
+                        <ul>
+                            <li>Allow users to search for Transport List items by specification year</li>
+                            <li>Allow users to select an item of interest and request bid data from the backend server</li>
+                            <li>Provide simple aggregations like those found in the Average Bid Price PDFs</li>
+                            <li>Provide graphs where individual bids are plotted against time and quantity to allow users to explore price variance across those two parameters</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hosting-->
+        <section class="dash-content" id="hosting">
+            <div class="container px-4 px-lg-5 mb-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="text-black my-4">Hosting Architecture</h1>
+                        <img class="img-fluid" src="assets/img/mndot-bid-hosting.jpg" alt="Hosting architecture diagram" />
+                        <p class="text-black mt-4">The frontend and backend applications are each run in docker containers. They are currently being run side by side on a low powered Ubuntu virtual machine with a public IP. An NGINX reverse proxy routes requests to the appropriate internal IP assigned to each process. The SQLite database is stored on a persistent volume block that is mounted to the virtual machine, which only the backend accesses.</p>
+                        <p class="text-black">I chose this configuration for its modularity, simplicity, and low hosting costs. Details behind my choices are outlined below.</p>
+                        <p class="text-black">SQLite is more than adequate for this small-data application and its use removes the complexity of running a third container to power a PostGreSQL or MySQL database. It is often cited as not suitable for a production environment due to its lack of concurrent write capabilities, however I am the only one with write access in the application's current configuration.</p>
+                        <p class="text-black">I wanted to keep the frontend and backend processes completely separate. I'm not certain that Dash-Plotly will be the final frontend framework for this project, I would like to try creating the frontend in a JavaScript framework in the future. Since the processes only interact via the REST API, I am free to modify, move, or replace the frontend without impacting the backend.</p>
+                        <p class="text-black">In the meantime, both processes require minimal resources and traffic is near-zero, so the low powered virtual machine can easily host both simialtanously. This both keeps my hosting costs low and simplifies routing of the traffic to each process.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Power Geospatial 2022</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
